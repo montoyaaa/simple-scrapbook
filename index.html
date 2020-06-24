@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Scrapbook</title>
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+      integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+      <a class="navbar-brand" href="#">Scrapbook</a>
+    </nav>
+
+    <main role="main">
+      <div class="jumbotron">
+        <div class="container d-flex flex-column align-items-center">
+          <h3 class="font-weight-bold">
+            Mural de Recados - Deixe sua mensagem
+          </h3>
+          <div id="inputField" class="col-md-6">
+            <label for="messageTitle" class="font-weight-bold">Título:</label>
+            <input
+              type="text"
+              class="form-control"
+              id="messageTitle"
+              placeholder="Digite o título da mensagem"
+            />
+            <label for="messageBody" class="font-weight-bold">Mensagem</label>
+            <textarea
+              id="messageBody"
+              class="form-control"
+              cols="30"
+              rows="5"
+              placeholder="Digite sua mensagem"
+            ></textarea>
+            <button type="button" class="btn btn-dark w-100 mt-3">
+              Adicionar
+            </button>
+          </div>
+
+          <div
+            id="scrapsField"
+            class="d-flex mt-5 justify-content-center flex-wrap"
+           >
+            
+        </div>
+      </div>
+    </main>
+    <script src="index.js"></script>
+  </body>
+</html>
