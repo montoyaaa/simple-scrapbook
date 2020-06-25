@@ -24,6 +24,17 @@ function renderCards() {
     let cardTitle = document.createTextNode(item.title);
     let cardText = document.createTextNode(item.text);
 
+    let removeButton = document.createElement("button");
+
+    let position = cards.indexOf(item);
+
+    removeButton.setAttribute("onclick", `deleteCard(${position})`);
+
+    let textButton = document.createTextNode("Remover");
+    removeButton.setAttribute("class", "btn btn-danger w-100");
+    removeButton.setAttribute("type", "button");
+    removeButton.onclick;
+
     cardElement.appendChild(card);
     card.appendChild(cardHeader);
     card.appendChild(cardBody);
@@ -31,6 +42,9 @@ function renderCards() {
 
     cardContent.appendChild(cardText);
     cardHeader.appendChild(cardTitle);
+
+    card.appendChild(removeButton);
+    removeButton.appendChild(textButton);
   }
 }
 renderCards();
@@ -62,4 +76,9 @@ buttonElement.onclick = createCard;
 
 function saveInStorage() {
   localStorage.setItem("card_list", JSON.stringify(cards));
+}
+
+function deleteCard(position) {
+  cards.splice(position, 1);
+  renderCards();
 }
