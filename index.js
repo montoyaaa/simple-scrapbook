@@ -9,6 +9,8 @@ function renderCards() {
   cardElement.innerHTML = "";
 
   for (const item of cards) {
+    // -----------------------------------------
+
     let card = document.createElement("div");
     card.setAttribute("class", "card text-white bg-dark m-2 w-25");
     card.setAttribute("style", "max-width: 1000px; min-width: 250px");
@@ -25,16 +27,31 @@ function renderCards() {
     let cardTitle = document.createTextNode(item.title);
     let cardText = document.createTextNode(item.text);
 
+    let divButton = document.createElement("div");
+    divButton.setAttribute("class", "d-flex justify-content-between");
+
     let removeButton = document.createElement("button");
+    let editButton = document.createElement("button");
 
     let position = cards.indexOf(item);
 
-    removeButton.setAttribute("onclick", `deleteCard(${position})`);
+    let textButton = document.createElement("i");
+    textButton.setAttribute("class", "fas fa-trash-alt");
 
-    let textButton = document.createTextNode("Remover");
-    removeButton.setAttribute("class", "btn btn-danger w-100");
+    removeButton.setAttribute("onclick", `deleteCard(${position})`);
+    removeButton.setAttribute("class", "btn btn-danger");
     removeButton.setAttribute("type", "button");
-    removeButton.onclick;
+
+    let textEditButton = document.createElement("i");
+    textEditButton.setAttribute("class", "fas fa-edit");
+
+    editButton.setAttribute("onclick", `####(${position})`);
+    editButton.setAttribute("class", "btn btn-dark");
+    editButton.setAttribute("type", "button");
+
+    //  ---------------------------------------
+
+    // ----------------------------------------
 
     cardElement.appendChild(card);
     card.appendChild(cardHeader);
@@ -44,8 +61,12 @@ function renderCards() {
     cardContent.appendChild(cardText);
     cardHeader.appendChild(cardTitle);
 
-    card.appendChild(removeButton);
+    card.appendChild(divButton);
+
+    divButton.appendChild(editButton);
+    divButton.appendChild(removeButton);
     removeButton.appendChild(textButton);
+    editButton.appendChild(textEditButton);
   }
 }
 renderCards();
