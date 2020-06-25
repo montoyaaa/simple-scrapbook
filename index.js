@@ -10,7 +10,8 @@ function renderCards() {
 
   for (const item of cards) {
     let card = document.createElement("div");
-    card.setAttribute("class", "card text-white bg-dark m-2");
+    card.setAttribute("class", "card text-white bg-dark m-2 w-25");
+    card.setAttribute("style", "max-width: 1000px; min-width: 250px");
 
     let cardHeader = document.createElement("div");
     cardHeader.setAttribute("class", "card-header");

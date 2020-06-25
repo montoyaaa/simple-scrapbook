@@ -1,3 +1,6 @@
 textarea {
   resize: none;
 }
+html {
+  background-color: #e9ecef;
+}
