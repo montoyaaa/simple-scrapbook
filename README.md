@@ -1,7 +1,7 @@
 # simple-scrapbook
 
-Um simples scrapbook, utilizando: HTML. CSS e Javascript
+Um simples scrapbook, utilizando: HTML. CSS e JavaScript
 
 # ---------------------
 
-A simple scrapbook, using: HTML, CSS and Javascript
+A simple scrapbook, using: HTML, CSS and JavaScript
