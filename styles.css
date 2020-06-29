@@ -2,8 +2,17 @@ textarea {
   resize: none;
 }
 
+html {
+  background-color: #e9ecef;
+}
+
 #scrapsField .message-cards {
   height: 200px;
+  overflow-y: scroll;
+}
+
+#scrapsField .message-cards .card-text {
+  height: 100px;
   overflow-y: scroll;
 }
 

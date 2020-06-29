@@ -1,34 +1,115 @@
-let titleInput = document.getElementById("messageTitle");
-let messageInput = document.getElementById("messageBody");
-let addButton = document.getElementById("addButton");
-let scrapsField = document.getElementById("scrapsField");
+let inputTitle = document.querySelector("#inputField input");
+let inputText = document.querySelector("#inputField textarea");
+let buttonElement = document.querySelector("#inputField button");
+let cardElement = document.querySelector("#scrapsField");
 
-let scraps = [];
+let cards = JSON.parse(localStorage.getItem("card_list")) || [];
 
-function addNewScrap() {
-  let title = titleInput.value;
-  let message = messageInput.value;
+function renderCards() {
+  cardElement.innerHTML = "";
 
-  scrapsField.innerHTML = "";
+  for (const item of cards) {
+    // -----------------------------------------
 
-  scraps.push({ title, message });
+    let card = document.createElement("div");
+    card.setAttribute(
+      "class",
+      "card text-white bg-dark m-2 w-25"
+    );
+    
+    let cardHeader = document.createElement("div");
+    cardHeader.setAttribute("class", "card-header");
 
-  for (const scrap of scraps) {
-    scrapsField.innerHTML = createScrapCard(scrap.title, scrap.message);
+    let cardBody = document.createElement("div");
+    cardBody.setAttribute("class", "card-body");
+
+    let cardContent = document.createElement("p");
+    cardContent.setAttribute("class", "card-text");
+
+    let cardTitle = document.createTextNode(item.title);
+    let cardText = document.createTextNode(item.text);
+
+    let divButton = document.createElement("div");
+    divButton.setAttribute("class", "d-flex justify-content");
+
+    let removeButton = document.createElement("button");
+    let editButton = document.createElement("button");
+
+    let position = cards.indexOf(item);
+
+    let textButton = document.createElement("i");
+    textButton.setAttribute("class", "fas fa-trash-alt");
+
+    removeButton.setAttribute("onclick", `deleteCard(${position})`);
+    removeButton.setAttribute("class", "btn btn-dark w-50");
+    removeButton.setAttribute("type", "button");
+
+    let textEditButton = document.createElement("i");
+    textEditButton.setAttribute("class", "fas fa-edit");
+
+    editButton.setAttribute("onclick", `editCard(${position})`);
+    editButton.setAttribute("class", "btn btn-dark w-50");
+    editButton.setAttribute("type", "button");
+
+    //  ---------------------------------------
+
+    // ----------------------------------------
+
+    cardElement.appendChild(card);
+    card.appendChild(cardHeader);
+    card.appendChild(cardBody);
+    cardBody.appendChild(cardContent);
+
+    cardContent.appendChild(cardText);
+    cardHeader.appendChild(cardTitle);
+
+    card.appendChild(divButton);
+
+    divButton.appendChild(editButton);
+    divButton.appendChild(removeButton);
+    removeButton.appendChild(textButton);
+    editButton.appendChild(textEditButton);
+  }
+}
+renderCards();
+
+function createCard() {
+  let titleText = inputTitle.value;
+  let text = inputText.value;
+  if (validaDados(titleText, text)) {
+    let card = {
+      title: titleText,
+      text: text,
+    };
+    cards.push(card);
+    inputTitle.value = "";
+    inputText.value = "";
+
+    renderCards();
+    saveInStorage();
   }
 }
 
-function createScrapCard(title, message) {
-  return `
-  <div class="message-cards card text-white bg-dark m-2">
-    <div class="card-header font-weight-bold">${title}</div>
-    <div class="card-body">
-      <p class="card-text">
-        ${message}
-      </p>
-    </div>
-  </div>
-  `;
+function validaDados(title, text) {
+  if (title.length == 0) return alert(`Preencha todos os campos`);
+  if (text.length == 0) return alert(`Preencha todos os campos`);
+  return true;
 }
 
-addButton.onclick = addNewScrap;
+buttonElement.onclick = createCard;
+
+function saveInStorage() {
+  localStorage.setItem("card_list", JSON.stringify(cards));
+}
+
+function deleteCard(position) {
+  cards.splice(position, 1);
+  renderCards();
+  saveInStorage();
+}
+
+function editCard(position) {
+  cards.$(event.relatedTarget)(position, 1);
+  renderCards();
+  saveInStorage();
+}
