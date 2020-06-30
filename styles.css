@@ -8,14 +8,14 @@ html {
 
 #scrapsField .message-cards {
   width: 250px;
-  height: 250px;
+  height: 240px;
 }
 
 #scrapsField .message-cards .card-text {
   height: 100px;
   overflow-y: scroll;
 }
-.fa-trash-alt{
+.fa-trash-alt:hover {
   color: rgb(255, 0, 0);
 }
 

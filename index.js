@@ -38,8 +38,12 @@ function createScrapCard(title, message) {
                 </p>
               </div>
               <div class="w100 d-flex justify-content">
-                <button class="btn btn-dark w-50 fas fa-edit"></button>
-                <button class="btn btn-dark w-50 fas fa-trash-alt" ></button>
+                <button
+                  class="btn btn-dark w-50 fas fa-edit p-3"
+                  data-toggle="modal"
+                  data-target="#editModal"
+                ></button>
+                <button class="btn btn-dark w-50 fas fa-trash-alt p-3"></button>
               </div>
             </div>
   `;
