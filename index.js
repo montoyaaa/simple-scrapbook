@@ -1,115 +1,48 @@
-let inputTitle = document.querySelector("#inputField input");
-let inputText = document.querySelector("#inputField textarea");
-let buttonElement = document.querySelector("#inputField button");
-let cardElement = document.querySelector("#scrapsField");
+let titleInput = document.getElementById("messageTitle");
+let messageInput = document.getElementById("messageBody");
+let addButton = document.getElementById("addButton");
+let scrapsField = document.getElementById("scrapsField");
 
-let cards = JSON.parse(localStorage.getItem("card_list")) || [];
+let scraps = [];
 
-function renderCards() {
-  cardElement.innerHTML = "";
+function renderScraps() {
+  scrapsField.innerHTML = "";
 
-  for (const item of cards) {
-    // -----------------------------------------
-
-    let card = document.createElement("div");
-    card.setAttribute(
-      "class",
-      "card text-white bg-dark m-2 w-25"
-    );
-    
-    let cardHeader = document.createElement("div");
-    cardHeader.setAttribute("class", "card-header");
-
-    let cardBody = document.createElement("div");
-    cardBody.setAttribute("class", "card-body");
-
-    let cardContent = document.createElement("p");
-    cardContent.setAttribute("class", "card-text");
-
-    let cardTitle = document.createTextNode(item.title);
-    let cardText = document.createTextNode(item.text);
-
-    let divButton = document.createElement("div");
-    divButton.setAttribute("class", "d-flex justify-content");
-
-    let removeButton = document.createElement("button");
-    let editButton = document.createElement("button");
-
-    let position = cards.indexOf(item);
-
-    let textButton = document.createElement("i");
-    textButton.setAttribute("class", "fas fa-trash-alt");
-
-    removeButton.setAttribute("onclick", `deleteCard(${position})`);
-    removeButton.setAttribute("class", "btn btn-dark w-50");
-    removeButton.setAttribute("type", "button");
-
-    let textEditButton = document.createElement("i");
-    textEditButton.setAttribute("class", "fas fa-edit");
-
-    editButton.setAttribute("onclick", `editCard(${position})`);
-    editButton.setAttribute("class", "btn btn-dark w-50");
-    editButton.setAttribute("type", "button");
-
-    //  ---------------------------------------
-
-    // ----------------------------------------
-
-    cardElement.appendChild(card);
-    card.appendChild(cardHeader);
-    card.appendChild(cardBody);
-    cardBody.appendChild(cardContent);
-
-    cardContent.appendChild(cardText);
-    cardHeader.appendChild(cardTitle);
-
-    card.appendChild(divButton);
-
-    divButton.appendChild(editButton);
-    divButton.appendChild(removeButton);
-    removeButton.appendChild(textButton);
-    editButton.appendChild(textEditButton);
-  }
-}
-renderCards();
-
-function createCard() {
-  let titleText = inputTitle.value;
-  let text = inputText.value;
-  if (validaDados(titleText, text)) {
-    let card = {
-      title: titleText,
-      text: text,
-    };
-    cards.push(card);
-    inputTitle.value = "";
-    inputText.value = "";
-
-    renderCards();
-    saveInStorage();
+  for (const scrap of scraps) {
+    scrapsField.innerHTML += createScrapCard(scrap.title, scrap.message);
   }
 }
 
-function validaDados(title, text) {
-  if (title.length == 0) return alert(`Preencha todos os campos`);
-  if (text.length == 0) return alert(`Preencha todos os campos`);
-  return true;
+function addNewScrap() {
+  let title = titleInput.value;
+  let message = messageInput.value;
+
+  if (!messageTitle.value || !messageBody.value) {
+    return alert("Todos os campos devem ser preenchidos!");
+  }
+  titleInput.value = "";
+  messageInput.value = "";
+
+  scraps.push({ title, message });
+
+  renderScraps();
 }
 
-buttonElement.onclick = createCard;
-
-function saveInStorage() {
-  localStorage.setItem("card_list", JSON.stringify(cards));
+function createScrapCard(title, message) {
+  return `
+  <div class="message-cards card text-white bg-dark m-2">
+              <div class="card-header font-weight-bold">${title}</div>
+              <div class="card-body">
+                <p class="card-text">
+                  ${message}
+                </p>
+              </div>
+              <div class="w100 d-flex justify-content">
+                <button class="btn btn-dark w-50 fas fa-edit"></button>
+                <button class="btn btn-dark w-50 fas fa-trash-alt" ></button>
+              </div>
+            </div>
+  `;
 }
 
-function deleteCard(position) {
-  cards.splice(position, 1);
-  renderCards();
-  saveInStorage();
-}
-
-function editCard(position) {
-  cards.$(event.relatedTarget)(position, 1);
-  renderCards();
-  saveInStorage();
-}
+addButton.onclick = addNewScrap;

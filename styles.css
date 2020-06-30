@@ -7,13 +7,16 @@ html {
 }
 
 #scrapsField .message-cards {
-  height: 200px;
-  overflow-y: scroll;
+  width: 250px;
+  height: 250px;
 }
 
 #scrapsField .message-cards .card-text {
   height: 100px;
   overflow-y: scroll;
+}
+.fa-trash-alt{
+  color: rgb(255, 0, 0);
 }
 
 ::-webkit-scrollbar {
