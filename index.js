@@ -6,7 +6,7 @@ let addButton = document.getElementById("addButton");
 let scrapsField = document.getElementById("scrapsField");
 let btnSaveEdit = document.getElementById("saveEdit");
 
-let scraps = [];
+let scraps = JSON.parse(localStorage.getItem("scraps_list")) || [];
 
 function renderScraps() {
   scrapsField.innerHTML = "";
@@ -19,7 +19,9 @@ function renderScraps() {
       position
     );
   }
+  saveInStorage();
 }
+renderScraps();
 
 function addNewScrap() {
   let title = titleInput.value;
@@ -58,6 +60,7 @@ function createScrapCard(title, message, position) {
 
 function deleteCard(position) {
   scraps.splice(position, 1);
+  saveInStorage();
   renderScraps();
 }
 
@@ -77,7 +80,12 @@ function saveChanges(position) {
   scraps[position].title = title;
   scraps[position].message = message;
 
+  saveInStorage();
   renderScraps(position);
+}
+
+function saveInStorage() {
+  localStorage.setItem("scraps_list", JSON.stringify(scraps));
 }
 
 btnSaveEdit.onclick = saveChanges;
