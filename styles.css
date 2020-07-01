@@ -19,6 +19,11 @@ html {
   color: rgb(255, 0, 0);
 }
 
+.fa-github:hover,
+.fa-linkedin-in:hover {
+  background-color: rgba(0, 0, 0, 0.3);
+}
+
 ::-webkit-scrollbar {
   width: 12px;
 }
