@@ -88,5 +88,4 @@ function saveInStorage() {
   localStorage.setItem("scraps_list", JSON.stringify(scraps));
 }
 
-btnSaveEdit.onclick = saveChanges;
 addButton.onclick = addNewScrap;
