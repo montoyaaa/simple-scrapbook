@@ -23,6 +23,12 @@ html {
 .fa-linkedin-in:hover {
   background-color: rgba(0, 0, 0, 0.3);
 }
+.navbar-brand {
+  padding: 19px;
+}
+.navbar-brand:hover {
+  background-color: rgba(0, 0, 0, 0.3);
+}
 
 ::-webkit-scrollbar {
   width: 12px;
