@@ -21,13 +21,15 @@ html {
 
 .fa-github:hover,
 .fa-linkedin-in:hover {
-  background-color: rgba(0, 0, 0, 0.3);
+  background-color: rgba(0, 0, 0, 0.082);
 }
 .navbar-brand {
   padding: 19px;
+  border-bottom: 2px solid #343a40;
 }
 .navbar-brand:hover {
-  background-color: rgba(0, 0, 0, 0.3);
+  background-color: rgba(0, 0, 0, 0.1);
+  border-bottom: 2px solid black;
 }
 
 ::-webkit-scrollbar {
