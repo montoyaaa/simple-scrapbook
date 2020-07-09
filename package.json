@@ -4,5 +4,13 @@
   "main": "index.js",
   "repository": "https://github.com/montoyaaa/simple-scrapbook.git",
   "author": "Ricardo Montoya <ricardomontoya2002@hotmail.com>",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "@babel/cli": "^7.10.4",
+    "@babel/core": "^7.10.4",
+    "@babel/preset-env": "^7.10.4"
+  },
+  "scripts": {
+    "dev": "babel ./main.js -o ./bundle.js -w"
+  }
 }
