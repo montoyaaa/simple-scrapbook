@@ -1,28 +1,39 @@
 class TaskList {
   constructor() {
     this.titleInput = document.getElementById("messageTitle");
+
     this.messageInput = document.getElementById("messageBody");
+
     this.addButton = document.getElementById("addButton");
+
     this.scrapsField = document.getElementById("scrapsField");
 
     this.scraps = [];
 
-    this.registerEvents();
+    this.setAddButtonEvents();
   }
 
-  registerEvents() {
-    this.addButton.onclick = this.addNewScrap();
+  setAddButtonEvents() {
+    this.addButton.onclick = () => this.addNewScrap();
+  }
+
+  setButtonEvents() {
+    console.log(document.querySelectorAll(".delete-button"));
   }
 
   renderScraps() {
     this.scrapsField.innerHTML = "";
 
     for (const scrap of this.scraps) {
+      let position = scraps.indexOf(scrap);
+
       this.scrapsField.innerHTML += this.createScrapCard(
         scrap.title,
-        scrap.message
+        scrap.message,
+        position
       );
     }
+    this.setButtonEvents();
   }
 
   addNewScrap() {
@@ -33,6 +44,12 @@ class TaskList {
     this.messageInput.value = "";
 
     this.scraps.push({ title, message });
+
+    this.renderScraps();
+  }
+
+  deleteScrap(position) {
+    this.scraps.splice(position, 1);
 
     this.renderScraps();
   }
@@ -49,9 +66,8 @@ class TaskList {
               <div class="w100 d-flex justify-content">
                 <button
                   class="btn btn-dark w-50 fas fa-edit p-3"
-                  onclick="openEditModal(${position})"
                 ></button>
-                <button class="btn btn-dark w-50 fas fa-trash-alt p-3" onclick="deleteCard(${position})"></button>
+                <button class="btn btn-dark w-50 fas fa-trash-alt p-3 delete-button"></button>
               </div>
             </div>
   `;
