@@ -25,6 +25,11 @@ var TaskList = /*#__PURE__*/function () {
   }
 
   _createClass(TaskList, [{
+    key: "generateScrapId",
+    value: function generateScrapId() {
+      return this.scraps.length + 1;
+    }
+  }, {
     key: "setAddButtonEvents",
     value: function setAddButtonEvents() {
       var _this = this;
@@ -36,7 +41,13 @@ var TaskList = /*#__PURE__*/function () {
   }, {
     key: "setButtonEvents",
     value: function setButtonEvents() {
-      console.log(document.querySelectorAll(".delete-button"));
+      var _this2 = this;
+
+      document.querySelectorAll(".delete-button").forEach(function (item) {
+        item.onclick = function (event) {
+          return _this2.deleteScrap(event);
+        };
+      });
     }
   }, {
     key: "renderScraps",
@@ -49,8 +60,8 @@ var TaskList = /*#__PURE__*/function () {
       try {
         for (_iterator.s(); !(_step = _iterator.n()).done;) {
           var scrap = _step.value;
-          var position = scraps.indexOf(scrap);
-          this.scrapsField.innerHTML += this.createScrapCard(scrap.title, scrap.message, position);
+          var cardHtml = this.createScrapCard(scrap.title, scrap.message);
+          this.insertHtml(cardHtml);
         }
       } catch (err) {
         _iterator.e(err);
@@ -67,7 +78,9 @@ var TaskList = /*#__PURE__*/function () {
       var message = this.messageInput.value;
       this.titleInput.value = "";
       this.messageInput.value = "";
+      var id = this.generateScrapId();
       this.scraps.push({
+        id: id,
         title: title,
         message: message
       });
@@ -75,9 +88,13 @@ var TaskList = /*#__PURE__*/function () {
     }
   }, {
     key: "deleteScrap",
-    value: function deleteScrap(position) {
-      this.scraps.splice(position, 1);
-      this.renderScraps();
+    value: function deleteScrap(event) {
+      event.path[2].remove();
+    }
+  }, {
+    key: "insertHtml",
+    value: function insertHtml(html) {
+      this.scrapsField += html;
     }
   }, {
     key: "createScrapCard",
