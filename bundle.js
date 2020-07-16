@@ -17,8 +17,11 @@ var TaskList = /*#__PURE__*/function () {
     _classCallCheck(this, TaskList);
 
     this.titleInput = document.getElementById("messageTitle");
+    this.editTitleInput = document.getElementById("editMessageTitle");
     this.messageInput = document.getElementById("messageBody");
+    this.editMessageInput = document.getElementById("editMessageBody");
     this.addButton = document.getElementById("addButton");
+    this.btnSaveEdit = document.getElementById("saveEdit");
     this.scrapsField = document.getElementById("scrapsField");
     this.scraps = [];
     this.setAddButtonEvents();
@@ -48,6 +51,15 @@ var TaskList = /*#__PURE__*/function () {
           return _this2.deleteScrap(event);
         };
       });
+      document.querySelectorAll(".edit-button").forEach(function (item) {
+        item.onclick = function (event) {
+          return _this2.openEditModal(event);
+        };
+      });
+
+      this.btnSaveEdit.onclick = function () {
+        return _this2.saveChanges();
+      };
     }
   }, {
     key: "renderScraps",
@@ -82,6 +94,11 @@ var TaskList = /*#__PURE__*/function () {
     value: function addNewScrap() {
       var title = this.titleInput.value;
       var message = this.messageInput.value;
+
+      if (title == "" || message == "") {
+        return alert("Preencha todos os campos ;)");
+      }
+
       this.titleInput.value = "";
       this.messageInput.value = "";
       var id = this.generateScrapId();
@@ -91,6 +108,11 @@ var TaskList = /*#__PURE__*/function () {
         message: message
       });
       this.generateScrap(id, title, message);
+    }
+  }, {
+    key: "insertHtml",
+    value: function insertHtml(html) {
+      this.scrapsField.innerHTML += html;
     }
   }, {
     key: "deleteScrap",
@@ -103,14 +125,26 @@ var TaskList = /*#__PURE__*/function () {
       this.scraps.splice(scrapIndex, 1);
     }
   }, {
-    key: "insertHtml",
-    value: function insertHtml(html) {
-      this.scrapsField.innerHTML += html;
-    }
+    key: "openEditModal",
+    value: function openEditModal(event) {
+      $("#editModal").modal("toggle");
+      var scrapId = event.path[2].getAttribute("id-scrap");
+      var scrapIndex = this.scraps.findIndex(function (scrap) {
+        return scrap.id == scrapId;
+      });
+      this.editTitleInput.value = this.scraps[scrapIndex].title;
+      this.editMessageInput.value = this.scraps[scrapIndex].message;
+    } // saveChanges() {
+    //   title = this.editTitleInput.value;
+    //   message = this.editMessageInput.value;
+    //   this.scraps.title = title;
+    //   this.scraps.message = message;
+    // }
+
   }, {
     key: "createScrapCard",
     value: function createScrapCard(id, title, message) {
-      return "\n  <div class=\"message-cards card text-white bg-dark m-2\" id-scrap=\"".concat(id, "\">\n  <div class=\"card-header font-weight-bold\">").concat(title, "</div>\n  <div class=\"card-body\">\n                <p class=\"card-text\">\n                  ").concat(message, "\n                </p>\n              </div>\n              <div class=\"w100 d-flex justify-content\">\n                <button\n                  class=\"btn btn-dark w-50 fas fa-edit p-3\"\n                ></button>\n                <button class=\"btn btn-dark w-50 fas fa-trash-alt p-3 delete-button\"></button>\n              </div>\n            </div>\n  ");
+      return "\n  <div class=\"message-cards card text-white bg-dark m-2\" id-scrap=\"".concat(id, "\">\n  <div class=\"card-header font-weight-bold\">").concat(title, "</div>\n  <div class=\"card-body\">\n                <p class=\"card-text\">\n                  ").concat(message, "\n                </p>\n              </div>\n              <div class=\"w100 d-flex justify-content\">\n                <button\n                  class=\"btn btn-dark w-50 fas fa-edit p-3 edit-button\"\n                ></button>\n                <button class=\"btn btn-dark w-50 fas fa-trash-alt p-3 delete-button\"></button>\n              </div>\n            </div>\n  ");
     }
   }]);
 
