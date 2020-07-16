@@ -35,8 +35,6 @@ class TaskList {
     document.querySelectorAll(".edit-button").forEach((item) => {
       item.onclick = (event) => this.openEditModal(event);
     });
-
-    this.btnSaveEdit.onclick = () => this.saveChanges();
   }
 
   renderScraps() {
@@ -100,15 +98,19 @@ class TaskList {
 
     this.editTitleInput.value = this.scraps[scrapIndex].title;
     this.editMessageInput.value = this.scraps[scrapIndex].message;
+
+    this.btnSaveEdit.onclick = () => this.saveChanges(scrapIndex);
   }
 
-  // saveChanges() {
-  //   title = this.editTitleInput.value;
-  //   message = this.editMessageInput.value;
+  saveChanges(scrapIndex) {
+    let title = this.editTitleInput.value;
+    let message = this.editMessageInput.value;
 
-  //   this.scraps.title = title;
-  //   this.scraps.message = message;
-  // }
+    this.scraps[scrapIndex] = { title, message };
+    this.renderScraps();
+
+    $("#editModal").modal("hide");
+  }
 
   createScrapCard(id, title, message) {
     return `

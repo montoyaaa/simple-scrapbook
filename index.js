@@ -74,14 +74,14 @@ function openEditModal(position) {
 }
 
 function saveChanges(position) {
-  title = editTitleInput.value;
-  message = editMessageInput.value;
+  let title = editTitleInput.value;
+  let message = editMessageInput.value;
 
-  scraps[position].title = title;
-  scraps[position].message = message;
+  scraps[position] = { title, message };
 
   saveInStorage();
   renderScraps(position);
+  $("#editModal").modal("hide");
 }
 
 function saveInStorage() {

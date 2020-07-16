@@ -56,10 +56,6 @@ var TaskList = /*#__PURE__*/function () {
           return _this2.openEditModal(event);
         };
       });
-
-      this.btnSaveEdit.onclick = function () {
-        return _this2.saveChanges();
-      };
     }
   }, {
     key: "renderScraps",
@@ -127,6 +123,8 @@ var TaskList = /*#__PURE__*/function () {
   }, {
     key: "openEditModal",
     value: function openEditModal(event) {
+      var _this3 = this;
+
       $("#editModal").modal("toggle");
       var scrapId = event.path[2].getAttribute("id-scrap");
       var scrapIndex = this.scraps.findIndex(function (scrap) {
@@ -134,13 +132,23 @@ var TaskList = /*#__PURE__*/function () {
       });
       this.editTitleInput.value = this.scraps[scrapIndex].title;
       this.editMessageInput.value = this.scraps[scrapIndex].message;
-    } // saveChanges() {
-    //   title = this.editTitleInput.value;
-    //   message = this.editMessageInput.value;
-    //   this.scraps.title = title;
-    //   this.scraps.message = message;
-    // }
 
+      this.btnSaveEdit.onclick = function () {
+        return _this3.saveChanges(scrapIndex);
+      };
+    }
+  }, {
+    key: "saveChanges",
+    value: function saveChanges(scrapIndex) {
+      var title = this.editTitleInput.value;
+      var message = this.editMessageInput.value;
+      this.scraps[scrapIndex] = {
+        title: title,
+        message: message
+      };
+      this.renderScraps();
+      $("#editModal").modal("hide");
+    }
   }, {
     key: "createScrapCard",
     value: function createScrapCard(id, title, message) {
