@@ -1,3 +1,13 @@
+import api from "./services/api";
+
+// async function teste() {
+//   const response = await api.get("/");
+
+//   console.log(response.data);
+// }
+
+// teste();
+
 class TaskList {
   constructor() {
     this.titleInput = document.getElementById("messageTitle");
@@ -16,11 +26,15 @@ class TaskList {
 
     this.scraps = [];
 
+    this.getScraps();
     this.setAddButtonEvents();
   }
 
-  generateScrapId() {
-    return this.scraps.length + 1;
+  async getScraps() {
+    const { data } = await api.get("/");
+
+    this.scraps = data;
+    this.renderScraps();
   }
 
   setAddButtonEvents() {
@@ -53,9 +67,9 @@ class TaskList {
     this.setButtonEvents();
   }
 
-  addNewScrap() {
-    let title = this.titleInput.value;
-    let message = this.messageInput.value;
+  async addNewScrap() {
+    let newTitle = this.titleInput.value;
+    let newMessage = this.messageInput.value;
 
     if (title == "" || message == "") {
       return alert("Preencha todos os campos ;)");
@@ -64,7 +78,12 @@ class TaskList {
     this.titleInput.value = "";
     this.messageInput.value = "";
 
-    const id = this.generateScrapId();
+    const {
+      data: { id, title, message },
+    } = await api.post("/", {
+      title: newTitle,
+      message: newMessage,
+    });
 
     this.scraps.push({ id, title, message });
 
