@@ -94,7 +94,7 @@ class TaskList {
     this.scrapsField.innerHTML += html;
   }
 
-  deleteScrap(event) {
+  async deleteScrap(event) {
     event.path[2].remove();
 
     const scrapId = event.path[2].getAttribute("id-scrap");
@@ -102,6 +102,8 @@ class TaskList {
     const scrapIndex = this.scraps.findIndex((scrap) => {
       return scrap.id == scrapId;
     });
+
+    const response = await api.delete(`/${scrapId}`);
 
     this.scraps.splice(scrapIndex, 1);
   }
@@ -118,14 +120,22 @@ class TaskList {
     this.editTitleInput.value = this.scraps[scrapIndex].title;
     this.editMessageInput.value = this.scraps[scrapIndex].message;
 
-    this.btnSaveEdit.onclick = () => this.saveChanges(scrapIndex);
+    this.btnSaveEdit.onclick = () => this.saveChanges(scrapIndex, scrapId);
   }
 
-  saveChanges(scrapIndex) {
-    let title = this.editTitleInput.value;
-    let message = this.editMessageInput.value;
+  async saveChanges(scrapIndex, scrapId) {
+    let newTitle = this.editTitleInput.value;
+    let newMessage = this.editMessageInput.value;
+
+    const {
+      data: { title, message },
+    } = await api.put(`/${scrapId}`, {
+      title: newTitle,
+      message: newMessage,
+    });
 
     this.scraps[scrapIndex] = { title, message };
+
     this.renderScraps();
 
     $("#editModal").modal("hide");
