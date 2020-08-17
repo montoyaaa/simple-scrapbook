@@ -124,14 +124,12 @@ class TaskList {
   }
 
   async saveChanges(scrapIndex, scrapId) {
-    let newTitle = this.editTitleInput.value;
-    let newMessage = this.editMessageInput.value;
+    let title = this.editTitleInput.value;
+    let message = this.editMessageInput.value;
 
-    const {
-      data: { title, message },
-    } = await api.put(`/${scrapId}`, {
-      title: newTitle,
-      message: newMessage,
+    await api.put(`/${scrapId}`, {
+      title,
+      message,
     });
 
     this.scraps[scrapIndex] = { title, message };
