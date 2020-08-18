@@ -132,7 +132,7 @@ class TaskList {
       message,
     });
 
-    this.scraps[scrapIndex] = { title, message };
+    this.scraps[scrapIndex] = { scrapId, title, message };
 
     this.renderScraps();
 
